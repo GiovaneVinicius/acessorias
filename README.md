@@ -1,66 +1,118 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Projeto Laravel com Vue.js
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este é um projeto desenvolvido com Laravel e Vue.js, utilizando Laravel Mix para a compilação dos assets front-end. O projeto também faz uso do Laravel Sanctum para autenticação de APIs.
 
-## About Laravel
+## Requisitos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP >= 8.2
+- Composer
+- Node.js e npm
+- Banco de Dados (MySQL)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Instalação
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. Clonar o Repositório
 
-## Learning Laravel
+```bash
+git clone https://github.com/GiovaneVinicius/acessorias.git
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+cd acessorias
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 2. Instalar Dependências do PHP
 
-## Laravel Sponsors
+```bash
+composer install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 3. Instalar Dependências do Node
 
-### Premium Partners
+```bash
+npm install
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 4. Configurar o Ambiente
 
-## Contributing
+Copie o arquivo .env.example para .env e configure as variáveis de ambiente, especialmente as configurações de banco de dados.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Code of Conduct
+### 5. Migrar e Popular o Banco de Dados
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+php artisan migrate --seed
+```
 
-## Security Vulnerabilities
+### 6. Executar o Laravel Mix
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+npm run dev
+```
 
-## License
+### 7. Iniciar o Servidor de Desenvolvimento
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan serve
+```
+
+Agora você pode acessar o aplicativo em http://localhost:8000.
+
+## Autenticação com Laravel Sanctum
+O Laravel Sanctum oferece um sistema simples de autenticação de token para SPAs (Aplicações de Página Única), aplicativos mobile e APIs simples. Ele é fácil de configurar e usar, proporcionando uma camada adicional de segurança para suas APIs.
+
+```bash
+composer require laravel/sanctum
+php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+php artisan migrate
+```
+
+### Vantagens do Laravel Sanctum
+- Simplicidade: Fácil de configurar e usar.
+- Flexibilidade: Suporta tanto SPAs quanto APIs simples.
+- Segurança: Protege suas APIs de forma eficaz.
+
+## Compilação de Assets com Laravel Mix
+O Laravel Mix simplifica a compilação de arquivos CSS e JavaScript para seus aplicativos Laravel. Ele fornece uma API limpa e fluente para definir etapas de construção para sua aplicação usando a Webpack.
+
+### Vantagens do Laravel Mix
+- Simplicidade: Configuração mínima necessária.
+- Flexibilidade: Suporte para pré-processadores CSS como Sass e Less.
+- Integração: Fácil integração com Vue.js e React.
+
+## Estrutura de Services
+Em vez de usar o padrão MVC tradicional, este projeto utiliza uma estrutura de serviços para separar a lógica de negócios das camadas de controle e modelo. Isso melhora a organização do código e facilita a manutenção e testes.
+
+### Vantagens da Estrutura de Services
+- Separação de Preocupações: A lógica de negócios é separada da camada de controle.
+- Reusabilidade: Serviços podem ser reutilizados em diferentes partes da aplicação.
+- Testabilidade: Facilita a escrita de testes unitários e de integração.
+## Documentação da API
+
+Você pode checar a documentaçào completa abaixo:
+
+[![API Documentation](https://img.shields.io/badge/Ver-Documentação-blue)](https://documenter.getpostman.com/view/19769352/2sA3XLEj6q)
+
+
+| Método        | URI                   | Ação                        |
+| ------------- | --------------------- | --------------------------- |
+| GET/HEAD      | api/carts             | Retorna todos os carrinhos  |
+| POST          | api/carts             | Adiciona um novo carrinho   |
+| GET/HEAD      | api/carts/{cart}      | Retorna um carrinho         |
+| PUT/PATCH     | api/carts/{cart}      | Atualiza um carrinho        |
+| DELETE        | api/carts/{cart}      | Remove um carrinho          |
+| POST          | api/login             | Faz login                   |
+| GET/HEAD      | api/orders            | Retorna todos os pedidos    |
+| POST          | api/orders            | Adiciona um novo pedido     |
+| GET/HEAD      | api/orders/{order}    | Retorna um pedido           |
+| PUT/PATCH     | api/orders/{order}    | Atualiza um pedido          |
+| DELETE        | api/orders/{order}    | Remove um pedido            |
+| GET/HEAD      | api/products          | Retorna todos os produtos   |
+| POST          | api/products          | Adiciona um novo produto    |
+| GET/HEAD      | api/products/{product}| Retorna um produto          |
+| PUT/PATCH     | api/products/{product}| Atualiza um produto         |
+| DELETE        | api/products/{product}| Remove um produto           |
+| POST          | api/register          | Faz registro                |
