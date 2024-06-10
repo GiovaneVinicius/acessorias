@@ -21528,7 +21528,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
     login: function login() {
       var _this = this;
       this.clearErrors();
-      axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/login', {
+      axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/login', {
         email: this.loginEmail,
         password: this.loginPassword
       }).then(function (response) {
@@ -21541,7 +21541,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
     register: function register() {
       var _this2 = this;
       this.clearErrors();
-      axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/register', {
+      axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/register', {
         name: this.registerName,
         email: this.registerEmail,
         password: this.registerPassword,
@@ -21712,6 +21712,12 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       products: []
     };
   },
+  props: {
+    userId: {
+      type: String,
+      required: true
+    }
+  },
   methods: {
     fetchProducts: function fetchProducts() {
       var _this = this;
@@ -21755,8 +21761,9 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       }))();
     },
     addToCart: function addToCart(product) {
+      var _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var token, userId, data, response;
+        var token, data, response;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -21768,45 +21775,38 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
               }
               throw new Error('Token not found');
             case 4:
-              userId = localStorage.getItem('user_id');
-              if (userId) {
-                _context2.next = 7;
-                break;
-              }
-              throw new Error('User ID not found');
-            case 7:
               data = {
-                user_id: userId,
+                user_id: _this2.userId.toString(),
                 products: [{
                   id: product.id,
                   quantity: product.quantity
                 }]
               };
-              _context2.next = 10;
+              _context2.next = 7;
               return axios__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/carts', data, {
                 headers: {
                   'Authorization': "Bearer ".concat(token)
                 }
               });
-            case 10:
+            case 7:
               response = _context2.sent;
               alert('Produto adicionado ao carrinho!');
               window.location.reload();
-              _context2.next = 18;
+              _context2.next = 15;
               break;
-            case 15:
-              _context2.prev = 15;
+            case 12:
+              _context2.prev = 12;
               _context2.t0 = _context2["catch"](0);
               if (_context2.t0.response && _context2.t0.response.status === 401) {
                 console.error('Não autenticado:', _context2.t0.response.data.message);
               } else {
                 console.error('Erro ao adicionar o produto ao carrinho:', _context2.t0.message);
               }
-            case 18:
+            case 15:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[0, 15]]);
+        }, _callee2, null, [[0, 12]]);
       }))();
     }
   },
@@ -35007,6 +35007,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({});
+axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 app.component('auth-form', _components_AuthForm_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
 app.component('product-list', _components_ProductList_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
 app.component('cart-list', _components_CartList_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);

@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
     <div id="app">
-        <auth-form></auth-form>
+        <auth-form :csrf_token="{{ csrf_token() }}"></auth-form>
     </div>
 @stop

@@ -31,6 +31,12 @@
         products: []
       };
     },
+    props: {
+      userId: {
+        type: String, 
+        required: true
+      }
+    },
     methods: {
       async fetchProducts() {
         try {
@@ -60,13 +66,8 @@
             throw new Error('Token not found');
             }
 
-            const userId = localStorage.getItem('user_id');
-            if (!userId) {
-                throw new Error('User ID not found');
-            }
-
             const data = {
-            user_id: userId,
+            user_id: this.userId.toString(),
             products: [
                 {
                 id: product.id,

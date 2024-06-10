@@ -129,7 +129,7 @@ data() {
 methods: {
   login() {
     this.clearErrors();
-    axios.post('/api/login', {
+    axios.post('/login', {
       email: this.loginEmail,
       password: this.loginPassword
     })
@@ -143,7 +143,7 @@ methods: {
   },
   register() {
     this.clearErrors();
-    axios.post('/api/register', {
+    axios.post('/register', {
       name: this.registerName,
       email: this.registerEmail,
       password: this.registerPassword,

@@ -8,6 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const app = createApp({});
 
+axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
 app.component('auth-form', AuthForm);
 app.component('product-list', ProductList);
 app.component('cart-list', CartList);
