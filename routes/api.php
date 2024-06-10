@@ -9,6 +9,8 @@ use App\Http\Controllers\AuthController;
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('products', ProductController::class);
     Route::apiResource('orders', OrderController::class);
+
+    //Rotas carts 
     Route::apiResource('carts', CartController::class);
 });
 

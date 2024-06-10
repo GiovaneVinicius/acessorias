@@ -3,18 +3,26 @@
 namespace App\Services;
 
 use App\Models\Cart;
+use App\Models\CartProduct;
 use Illuminate\Support\Str;
 
 class CartService
 {
-    public function getAllCarts()
-    {
-        return Cart::with('products')->get();
-    }
+
 
     public function getCartById($id)
     {
         return Cart::with('products')->findOrFail($id);
+    }
+
+    public function getCartByUser($user_id)
+    {
+        $cart = Cart::where('user_id', $user_id)->first();
+
+        if ($cart) {
+            return response()->json(Cart::with('products', 'products.product')->find($cart->id), 200);
+        }
+        return response()->json(null, 401);
     }
 
     public function createCart($data)
@@ -30,14 +38,24 @@ class CartService
 
     public function updateCart($id, $data)
     {
-        $cart = Cart::findOrFail($id);
-        $cart->update($data);
+        $cartProduct = CartProduct::where('product_id', $data['products'][0]['id'])->where('cart_id', $id)->first();
 
-        if (isset($data['products'])) {
-            $cart->products()->sync($this->formatProducts($data['products']));
+
+        if ($cartProduct) {
+            $cartProduct->quantity = $data['products'][0]['quantity'];
+
+            $cartProduct->save();
+            return $cartProduct;
+        }else{
+
+            $cartProduct = CartProduct::create([
+                'cart_id' => $id,
+                'product_id' => $data['products'][0]['id'],
+                'quantity' => $data['products'][0]['quantity']
+            ]);
+
+            return $cartProduct;
         }
-
-        return $cart->load('products');
     }
 
     public function deleteCart($id)

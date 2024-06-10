@@ -21613,11 +21613,17 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
       cartItems: []
     };
   },
+  props: {
+    userId: {
+      type: String,
+      required: true
+    }
+  },
   methods: {
     fetchCartItems: function fetchCartItems() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var token, userId, response;
+        var token, response;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -21629,33 +21635,26 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
               }
               throw new Error('Token not found');
             case 4:
-              userId = localStorage.getItem('user_id');
-              if (userId) {
-                _context.next = 7;
-                break;
-              }
-              throw new Error('User ID not found');
-            case 7:
-              _context.next = 9;
-              return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/carts/".concat(userId), {
+              _context.next = 6;
+              return axios__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/carts/".concat(_this.userId.toString()), {
                 headers: {
                   'Authorization': "Bearer ".concat(token)
                 }
               });
-            case 9:
+            case 6:
               response = _context.sent;
               _this.cartItems = response.data.products;
-              _context.next = 16;
+              _context.next = 13;
               break;
-            case 13:
-              _context.prev = 13;
+            case 10:
+              _context.prev = 10;
               _context.t0 = _context["catch"](0);
               console.error('Error fetching cart items:', _context.t0.message);
-            case 16:
+            case 13:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 13]]);
+        }, _callee, null, [[0, 10]]);
       }))();
     },
     sendOrder: function sendOrder() {
@@ -22044,7 +22043,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.cartItems, function (item) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       key: item.id
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" - Quantidade: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.quantity), 1 /* TEXT */)]);
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.product.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" - Quantidade: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.quantity), 1 /* TEXT */)]);
   }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.sendOrder && $options.sendOrder.apply($options, arguments);

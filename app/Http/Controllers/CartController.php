@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Services\CartService;
+use PhpParser\Node\Stmt\Else_;
 
 class CartController extends Controller
 {
@@ -14,33 +16,35 @@ class CartController extends Controller
         $this->cartService = $cartService;
     }
 
-    public function index()
-    {
-        $carts = $this->cartService->getAllCarts();
-        return response()->json($carts);
-    }
-
     public function store(Request $request)
     {
-        $cart = $this->cartService->createCart($request->all());
-        return response()->json($cart, 201);
+        return response()->json($this->createOrUpdate($request), 201);
     }
 
     public function show($id)
     {
-        $cart = $this->cartService->getCartById($id);
-        return response()->json($cart);
+        return $this->cartService->getCartByUser($id);
     }
 
     public function update(Request $request, $id)
     {
-        $cart = $this->cartService->updateCart($id, $request->all());
-        return response()->json($cart);
+        return response()->json($this->createOrUpdate($request));
     }
 
     public function destroy($id)
     {
         $this->cartService->deleteCart($id);
         return response()->json(null, 204);
+    }
+
+    public function createOrUpdate(Request $request){
+        
+        $cart = Cart::where('user_id', $request->user_id)->first();
+
+        if($cart){
+            return  $this->cartService->updateCart($cart->id, $request->all());
+        }else{
+            return $this->cartService->createCart($request->all());
+        }
     }
 }
