@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Product;
+use Illuminate\Support\Str;
 
 class ProductService
 {
@@ -18,6 +19,8 @@ class ProductService
 
     public function createProduct($data)
     {
+        $uuid = Str::uuid();
+        $data['id'] = $uuid->toString();
         return Product::create($data);
     }
 

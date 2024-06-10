@@ -18,4 +18,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/produtos', function () {
         return view('produtos');
     });
+    Route::get('/carrinho', function () {
+        return view('carrinho');
+    });
+    Route::get('/pedidos', function () {
+        return view('pedidos');
+    });
 });
