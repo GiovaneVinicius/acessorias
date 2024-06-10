@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -26,6 +27,8 @@ class AuthController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
+        Auth::login($user);
+
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json(['access_token' => $token, 'token_type' => 'Bearer']);
@@ -38,6 +41,7 @@ class AuthController extends Controller
         }
 
         $user = User::where('email', $request['email'])->firstOrFail();
+        Auth::login($user);
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json(['access_token' => $token, 'token_type' => 'Bearer']);
