@@ -1,8 +1,16 @@
-# Projeto Laravel com Vue.js
+# Projeto Laravel com Vue.js e Autenticação via Sanctum
 
-Este é um projeto desenvolvido com Laravel e Vue.js, utilizando Laravel Mix para a compilação dos assets front-end. O projeto também faz uso do Laravel Sanctum para autenticação de APIs.
+Este projeto é uma aplicação web desenvolvida com as tecnologias Laravel e Vue.js, utilizando o Laravel Mix para otimizar a gestão de assets do front-end e o Laravel Sanctum para implementar um sistema de autenticação seguro e eficiente para suas APIs.
 
-## Requisitos
+## Recursos e Tecnologias:
+
+- Laravel: Framework PHP robusto e popular para desenvolvimento web.
+- Vue.js: Framework JavaScript para construção de interfaces de usuário interativas.
+- Laravel Mix: Ferramenta para compilar e otimizar assets (CSS, JavaScript) do front-end.
+- Laravel Sanctum: Sistema de autenticação leve e poderoso para APIs e SPAs.
+- UUID: Utilização de UUIDs para identificar de forma única e universal os recursos do sistema.
+- Arquitetura Monolítica: Estrutura monolítica para simplificar o desenvolvimento e implantação, ideal para projetos de menor escala.
+- Estrutura de Serviços: Organização da lógica de negócios em serviços para melhorar a modularidade, legibilidade e reutilização do código.
 
 - PHP >= 8.2
 - Composer
